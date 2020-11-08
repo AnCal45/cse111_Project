@@ -74,7 +74,7 @@ create table Version(
 
 create table Superpower(
     sp_ID integer,
-    sp_PowerID integer
+    sp_PowerID integer,
     sp_Name char(40) not null,
     sp_Description char(100) not null
 );
