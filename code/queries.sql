@@ -35,7 +35,7 @@ create table Superhero(
     sh_ID integer,
     sh_SuperheroID integer,
     sh_Name char(40) not null,
-    sh_SuperpowerID integer,
+    sh_SuperpowerID char(30),
     sh_from integer,
     sh_race integer,
     sh_Description char(100)
@@ -45,7 +45,7 @@ create table Antihero(
     ah_ID integer,
     ah_AntiheroID integer,
     ah_Name char(40) not null,
-    ah_SuperpowerID integer,
+    ah_SuperpowerID char(30),
     ah_from integer,
     ah_race integer,
     ah_Description char(100) 
@@ -55,7 +55,7 @@ create table Villain(
     v_ID integer,
     v_VillainID integer,
     v_Name char(40) not null,
-    v_SuperpowerID integer,
+    v_SuperpowerID char(30),
     v_from integer,
     v_race integer,
     v_Description char(100)
@@ -126,25 +126,127 @@ from Superhero
 WHERE sh_Name = 'Superman';  --  <-- 'hero name'
 
 
--- 2. find al characters' name and hero name
--- SELECT *
--- from NormalIdentity, Superhero, Villain, Antihero
--- where 
+-- 2. find all characters' name and hero name
+SELECT nl_Name as realName, sh_Name as character
+from NormalIdentity, Superhero
+where nl_ID = sh_ID
+UNION
+SELECT nl_Name as realName, v_Name as character
+from NormalIdentity, Villain
+where nl_ID = v_ID
+union 
+SELECT nl_Name as realName, ah_Name as character
+from NormalIdentity, Antihero
+where nl_ID = ah_ID;
 
 
 -- 3. find all villains born on earth that are not human
-
+SELECT *
+from Villain, NormalIdentity, Race
+where nl_ID = v_ID and v_race = r_ID
+    and r_Name <> 'human' and nl_DoB = 'Earth';          --  <-- type of race
 
 -- 4. Find all characters from a specific team
+SELECT *
+from Team
+where t_Name = 'Avengers';
 
-
--- 5. find a character from "_______" that is 
+-- 5. find characters from DC that are a villain and female
+SELECT *
+from NormalIdentity
+join Villain on v_ID = nl_ID
+join FromWhere on v_from = where_id
+where nl_Gender = 'f' and where_name = 'DC';
 
 
 -- 6. Find all teams from DC that have at least one female character
+-- SELECT *
+-- from (SELECT nl_Name as realName, sh_Name as character, sh_Team as teamID
+--             from NormalIdentity, Superhero
+--             where nl_ID = sh_ID
+--             UNION
+--             SELECT nl_Name as realName, v_Name as character, v_Team as teamID
+--             from NormalIdentity, Villain
+--             where nl_ID = v_ID
+--             union 
+--             SELECT nl_Name as realName, ah_Name as character, ah_Team as teamID
+--             from NormalIdentity, Antihero
+--             where nl_ID = ah_ID) AllChars
+-- group by teamID
+
+SELECT t_Name
+from Team, (SELECT teamID
+            from (SELECT nl_Name as realName, sh_Name as character, sh_Team as teamID, nl_Gender
+                        from NormalIdentity, Superhero
+                        where nl_ID = sh_ID and sh_from = 2
+                        UNION
+                        SELECT nl_Name as realName, v_Name as character, v_Team as teamID, nl_Gender
+                        from NormalIdentity, Villain
+                        where nl_ID = v_ID and v_from = 2
+                        union 
+                        SELECT nl_Name as realName, ah_Name as character, ah_Team as teamID, nl_Gender
+                        from NormalIdentity, Antihero
+                        where nl_ID = ah_ID and ah_from = 2) AllChars
+            group by teamID
+            having count(nl_Gender) >= 1)
+where t_TeamID = teamID;
+
+-- 7. Find the heroes with at least 3 archenemies
+SELECT *
+from Archenemy
+group by ae_SuperheroID
+having >= 3 ;
+
+
+-- 8. Adding a new character (will need to find the highest ID and use that to get the ID for the character)
+INSERT INTO NormalIdentity VALUES( ?, ?,'?','?', '?');
+
+
+-- 9. All female villains, heroes, and antiheroes with their possible real names thatare human
+SELECT v_Name as character, nl_Name
+from Villain, NormalIdentity, Race
+where v_ID = nl_ID 
+    and v_race = r_ID 
+    and nl_Gender = 'f'
+    and r_Name = 'human'
+union 
+SELECT sh_Name as character, nl_Name
+from Superhero, NormalIdentity, Race
+where sh_ID = nl_ID 
+    and sh_race = r_ID 
+    and nl_Gender = 'f'
+    and r_Name = 'human'
+UNION
+SELECT ah_Name as character, nl_Name
+from Antihero, NormalIdentity, Race
+where ah_ID = nl_ID 
+    and ah_race = r_ID 
+    and nl_Gender = 'f'
+    and r_Name = 'human';
 
 
 
+-- 10. select all characters that have no specific gender
+SELECT *
+from (SELECT nl_Name as realName, sh_Name as character, nl_Gender
+        from NormalIdentity, Superhero
+        where nl_ID = sh_ID
+        UNION
+        SELECT nl_Name as realName, v_Name as character, nl_Gender
+        from NormalIdentity, Villain
+        where nl_ID = v_ID
+        union 
+        SELECT nl_Name as realName, ah_Name as character, nl_Gender
+        from NormalIdentity, Antihero
+        where nl_ID = ah_ID) AllChars
+where nl_Gender = 'binary';
+
+
+
+-- 11. 
+
+
+-- 12. 
 
 
 
