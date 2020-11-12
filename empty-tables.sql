@@ -1,0 +1,10 @@
+delete from NormalIdentity;
+delete from Superhero;
+delete from Antihero;
+delete from Villain;
+delete from Team;
+delete from Version;
+delete from Superpower;
+delete from Archenemy;
+delete from Race;
+delete from Dimension;
