@@ -17,6 +17,7 @@ drop table Superpower;
 drop table Archenemy;
 drop table Race;
 drop table Dimension;
+drop table FromWhere;
 
 
 
@@ -25,11 +26,9 @@ drop table Dimension;
 create table NormalIdentity (
     nl_ID integer,
     nl_PersonID integer, 
-    nl_Name char(40) not null,
-    nl_Occupation char(40) not null,
-    nl_Gender char(2) not null,
-    nl_DoB Date not null,
-    nl_Location char(40) not null
+    nl_Name char(40) ,--not null,
+    nl_Gender char(2) ,--not null,
+    nl_DoB char(40) --null,
 );
 
 create table Superhero(
@@ -37,7 +36,9 @@ create table Superhero(
     sh_SuperheroID integer,
     sh_Name char(40) not null,
     sh_SuperpowerID integer,
-    sh_Description char(100) not null
+    sh_from integer,
+    sh_race integer,
+    sh_Description char(100)
 );
 
 create table Antihero(
@@ -45,7 +46,9 @@ create table Antihero(
     ah_AntiheroID integer,
     ah_Name char(40) not null,
     ah_SuperpowerID integer,
-    ah_Description char(100) not null
+    ah_from integer,
+    ah_race integer,
+    ah_Description char(100) 
 );
 
 create table Villain(
@@ -53,7 +56,9 @@ create table Villain(
     v_VillainID integer,
     v_Name char(40) not null,
     v_SuperpowerID integer,
-    v_Description char(100) not null
+    v_from integer,
+    v_race integer,
+    v_Description char(100)
 );
 
 create table Team(
@@ -75,7 +80,7 @@ create table Version(
 create table Superpower(
     sp_ID integer,
     sp_PowerID integer,
-    sp_Name char(40) not null,
+    sp_Name char(60) not null,
     sp_Description char(100) not null
 );
 
@@ -96,9 +101,55 @@ create table Dimension(
     d_Name integer
 );
 
+create table FromWhere(
+    where_id integer,
+    where_name char(20) not null
+);
+
 
 
 -- populate table
+.mode "csv"
+.separator ","
+.import database_normalIdentity.csv NormalIdentity
+-- we can do it in 3 different ways:
+    -- importing using the .import command
+    -- importing using sqliteStudio
+    -- inserting values manually
 
 
 -- create queries that are useful
+
+-- 1. Find a specific hero by secret hero name
+SELECT *
+from Superhero
+WHERE sh_Name = 'Superman';  --  <-- 'hero name'
+
+
+-- 2. find al characters' name and hero name
+-- SELECT *
+-- from NormalIdentity, Superhero, Villain, Antihero
+-- where 
+
+
+-- 3. find all villains born on earth that are not human
+
+
+-- 4. Find all characters from a specific team
+
+
+-- 5. find a character from "_______" that is 
+
+
+-- 6. Find all teams from DC that have at least one female character
+
+
+
+
+
+
+  
+
+
+
+
