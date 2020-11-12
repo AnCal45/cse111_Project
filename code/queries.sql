@@ -37,6 +37,7 @@ create table Superhero(
     sh_Name char(40) not null,
     sh_SuperpowerID char(30),
     sh_from integer,
+    sh_teamaffiliation char(40),
     sh_race integer,
     sh_Description char(100)
 );
@@ -57,6 +58,7 @@ create table Villain(
     v_Name char(40) not null,
     v_SuperpowerID char(30),
     v_from integer,
+    sh_teamaffiliation char(40),
     v_race integer,
     v_Description char(100)
 );
@@ -202,27 +204,27 @@ having >= 3 ;
 INSERT INTO NormalIdentity VALUES( ?, ?,'?','?', '?');
 
 
--- 9. All female villains, heroes, and antiheroes with their possible real names thatare human
+-- 9. All female villains, heroes, and antiheroes with their possible real names that are human
 SELECT v_Name as character, nl_Name
 from Villain, NormalIdentity, Race
 where v_ID = nl_ID 
     and v_race = r_ID 
     and nl_Gender = 'f'
-    and r_Name = 'human'
+    and r_Name = 'Human'
 union 
 SELECT sh_Name as character, nl_Name
 from Superhero, NormalIdentity, Race
 where sh_ID = nl_ID 
     and sh_race = r_ID 
     and nl_Gender = 'f'
-    and r_Name = 'human'
+    and r_Name = 'Human'
 UNION
 SELECT ah_Name as character, nl_Name
 from Antihero, NormalIdentity, Race
 where ah_ID = nl_ID 
     and ah_race = r_ID 
     and nl_Gender = 'f'
-    and r_Name = 'human';
+    and r_Name = 'Human';
 
 
 
@@ -239,14 +241,49 @@ from (SELECT nl_Name as realName, sh_Name as character, nl_Gender
         SELECT nl_Name as realName, ah_Name as character, nl_Gender
         from NormalIdentity, Antihero
         where nl_ID = ah_ID) AllChars
-where nl_Gender = 'binary';
+where nl_Gender = 'binary'; 
 
 
 
--- 11. 
+-- 11.  All female villains, heroes with their possible real names that are Meta-Human
+SELECT v_Name as character, nl_Name
+from Villain, NormalIdentity, Race
+where v_ID = nl_ID 
+    and v_race = r_ID 
+    and nl_Gender = 'f'
+    and r_Name = 'Meta-Human'
+union 
+SELECT sh_Name as character, nl_Name
+from Superhero, NormalIdentity, Race
+where sh_ID = nl_ID 
+    and sh_race = r_ID 
+    and nl_Gender = 'f'
+    and r_Name = 'Meta-Human';
 
 
--- 12. 
+-- 12. Find all characters that are in both avengers and shield
+SELECT *
+from Team
+where t_Name = 'Avengers'
+union
+SELECT *
+from Team
+where t_Name = 'S.H.I.E.L.D.';
+
+
+-- 13. INSERt a new race plus delete that new race
+INSERT INTO Race VALUES( 42,'kree');
+
+-- 14. delete waht we put in the 13
+Delete FROM Race 
+WHERE r_ID = 42;
+
+-- 15 using the update fuction
+UPDATE Race 
+SET r_name = 'half-vampire'
+WHERE r_ID = 40;
+
+
 
 
 
