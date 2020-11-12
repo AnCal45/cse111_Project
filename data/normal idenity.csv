@@ -1,3 +1,4 @@
+ni_ID,ni_persoinID,ni_name,ni_gender,ni_dob
 1,1,Peter Parker,m,Earth
 2,2,Steve Rogers,m,Earth
 3,3,Tony Stark,m,Earth
@@ -57,7 +58,7 @@
 57,57,Norman Osborn,m,Earth
 58,58,-------,m,Gorr's unnamed planet
 59,59,Emil Blonsky,m,Earth
-60,60,June Moone,f,Earth
+60,60,Amora,f,Asgard
 61,61,-------,binary,Earth
 62,62,Ophelia Sarkissian,f,Earth
 63,63,-------,m,Arthros
@@ -86,11 +87,11 @@
 86,86,Teth-Adam,m,Earth
 87,87,Victor Fries,m,Earth
 88,88,Gorilla,m,Earth
-89,89,harvey dent,m,Earth
+89,89,Harvey Dent,m,Earth
 90,90,Hunter Zolomon,m,Earth
 91,91,Dru-Zod,m,krypton
 92,92,Pamela Lillian Isley,f,Earth
-93,93,trigon,m,hell
+93,93,Trigon,m,hell
 94,94,"Leonard ""Len"" Snart",m,Earth
 95,95,David Hyde,m,Earth
 96,96,Edward Nigma,m,Earth
@@ -98,11 +99,11 @@
 98,98,"Henry ""Hank"" Henshaw",m,Earth
 99,99,Mobius,m,anti-matter universe
 100,100,Dr. Barbara Minerva,f,Earth
-101,101,Marc Spector,m,earth
-102,102,Eric Brooks,m,earth
-103,103,Wade Winston Wilson,m,earth
-104,104,Frank G. Castle,m,earth
-105,105,Johnny Blaze,m,earth
-106,106,Felicia Hardy,f,earth
-107,107,Bucky Barnes,m,earth
-108,108,---------,m,earth
+101,101,Marc Spector,m,Earth
+102,102,Eric Brooks,m,Earth
+103,103,Wade Winston Wilson,m,Earth
+104,104,Frank G. Castle,m,Earth
+105,105,Johnny Blaze,m,Earth
+106,106,Felicia Hardy,f,Earth
+107,107,Bucky Barnes,m,Earth
+108,108,---------,m,Earth

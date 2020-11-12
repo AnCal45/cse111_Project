@@ -1,0 +1,9 @@
+ah_ID,ah_antiheroID,ah_antiheroname,ah_superpowerID,ah_from,ah_race,ah_drescrip
+101,1,Moon Knight,"2,4,3,63",1,4,
+102,2,Blade,"3,1,8,10,24,33,11",1,40,
+103,3,Deadpool,"11,33,3,8,10,24",1,35,
+104,4,Punisher,"3,33,38,2",1,4,
+105,5,Ghost Rider,"8,11,14,64,65",1,4,
+106,6,Black Cat,"6,3,12,31",1,4,
+107,7,Winter Soilder,"3,33,38",1,4,
+108,8,Anti-venom,"8,19,11",1,41,

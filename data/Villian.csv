@@ -1,51 +1,51 @@
-v_ID,v_villianID,v_villianname,v_superpowerID,v_from,v_race,v_drescrip
-1,1,Galactus,,1,1,
-2,2,Loki,,1,2,some dude
-3,3,Ultron,,1,3,
-4,4,Red Skull,,1,4,
-5,5,Thanos,,1,5,
-6,6,Magneto,,1,6,
-7,7,Green Goblin,,1,7,
-8,8,Venom,,1,8,
-9,9,the Abomination,,1,7,
-10,10,Enchantress,,1,4,
-11,11,Sentinels,,1,9,
-12,12,Viper,,1,4,
-13,13,Annihilus,,1,10,
-14,14,Kang the Conqueror,,1,4,
-15,15,Juggernaut,,1,11,
-16,16,Sabretooth,,1,6,
-17,17,Kingpin,,1,4,"a fuken unit, he built different, no neck"
-18,18,Doctor Octopus,,1,4,
-19,19,Apocalypse,,1,6,
-20,20,Dark Phoenix,,1,6,
-21,21,Doctor Doom,,1,6,
-22,22,Klaw,,1,6,
-23,23,Iron Monger,,1,6,
-24,24,Hela,,1,12,
-25,25,MODOK,,1,7,
-26,26,Darkseid,,2,13,
-27,27,Sinestro,,2,14,
-28,28,Lex Luthor,,2,6,
-29,29,Brainiac,,2,15,
-30,30,Joker,,2,4,
-31,31,Deathstroke,,2,4,
-32,32,Ra's al Ghul,,2,4,
-33,33,Doomsday,,2,16,
-34,34,Bane,,2,7,
-35,35,Scarecrow,,2,4,
-36,36,Black Adam,,2,17,
-37,37,Mr.Freeze,,2,18,
-38,38,Gorilla Grodd,,2,19,
-39,39,Two-Face,,2,4,
-40,40,Zoom,,2,18,
-41,41,General Zod,,2,20,
-42,42,Poison,,2,17,
-43,43,Trigon,,2,21,
-44,44,Captain Cold,,2,4,
-45,45,Black Manta,,2,4,
-46,46,Riddler,,2,4,
-47,47,Penguin,,2,4,
-48,48,Cyborg Superman,,2,22,
-49,49,Anti-Monitor,,2,23,
-50,50,Cheetah,,2,4,
+v_ID,v_villianID,v_villianname,v_superpowerID,v_from,v_teamaffiations,v_race,v_drescrip
+51,1,Galactus,0,1,"1,2",1,"eats worlds, yea he just goes around and eats"
+52,2,Loki,0,1,"5,6,7",2,"god trickster, like pranks his brother thor the most"
+53,3,Ultron,0,1,"8,9",3,ai that wants to kill all humans
+54,4,Red Skull,0,1,"10,11",4,nazi who got to power hungry
+55,5,Thanos,0,1,"12,13",5,purple dude who whats to kill half of universe to please lady death
+56,6,Magneto,0,1,"2,14",6,dude who is evil or good just depends and moves metal
+57,7,Green Goblin,0,1,15,7,"ceo who was getting kicked out of company so took a drug, got powers"
+58,8,Venom,0,1,"16,17,18",8,an alien thing from space that needs host to stay on earth
+59,9,Abomination,0,1,"8,19,20",7,"russian guy who wanted powers of hulk, got them but also ugly af"
+60,10,Enchantress,0,1,"8,21,22",12,typical evil magic user blah blah blah
+61,11,Sentinels,0,1,-----,9,made to kill mutants no mercy at all bc they robots
+62,12,Viper,0,1,"10,26",4,trained from lil kid to be a killer for hydra
+63,13,Annihilus,0,1,23,10,a thing that just injoys to kill
+64,14,Kang the Conqueror,0,1,24,4,a guy from future comes back from time with high tech so decieded to conquer
+65,15,Juggernaut,0,1,"2,14",11,"a abs of a unit, cant stop wont stop"
+66,16,Sabretooth,0,1,"2,14,25",6,an animal that likes to kill
+67,17,Kingpin,0,1,"10,26,27",4,a unit of a person who has no neck
+68,18,Doctor Octopus,0,1,8,4,"mad scientest that made a sun, got wife killed, blames spiderman"
+69,19,Apocalypse,0,1,"28,29,30",6,
+70,20,Dark Phoenix,0,1,2,6,was a hero but got corrupted and became evil
+71,21,Doctor Doom,0,1,"7,31,1",6,"rich guy who made something in space, failed got mutated like the F4 and blames them"
+72,22,Klaw,0,1,"20,8",6,dude found wakanda and stole some of their things
+73,23,Iron Monger,0,1,"32,33",6,"leached off of howard stark, then tried to kill off tony stark"
+74,24,Hela,0,1,"34,35",12,
+75,25,MODOK,0,1,20,7,
+76,26,Darkseid,0,2,"36,37,38",13,
+77,27,Sinestro,0,2,"37,38,39,41,42",14,
+78,28,Lex Luthor,0,2,"37,38,41,43",6,
+79,29,Brainiac,0,2,"37,42",15,
+80,30,Joker,"6,7",2,41,4,
+81,31,Deathstroke,0,2,"38,44,45,46,41",4,
+82,32,Ra's al Ghul,0,2,"38,45,47",4,
+83,33,Doomsday,0,2,----,16,
+84,34,Bane,0,2,"44,38,45,37",7,
+85,35,Scarecrow,0,2,"41,38,39,37",4,
+86,36,Black Adam,0,2,"41,44,38",17,
+87,37,Mr.Freeze,0,2,"38,41",18,
+88,38,Gorilla Grodd,0,2,"37,38,41,42",19,
+89,39,Two-Face,0,2,"38,41",4,
+90,40,Zoom,0,2,"41,38",18,
+91,41,General Zod,0,2,48,20,
+92,42,Poison,0,2,"41,38,44",17,
+93,43,Trigon,0,2,49,21,
+94,44,Captain Cold,0,2,"37,38,43,44,41",4,
+95,45,Black Manta,0,2,"37,38,44,41",4,
+96,46,Riddler,0,2,"37,38,41",4,
+97,47,Penguin,0,2,"37,38,41",4,
+98,48,Cyborg Superman,0,2,"39,50",22,
+99,49,Anti-Monitor,0,2,39,23,
+100,50,Cheetah,0,2,"37,38,41,44",4,
