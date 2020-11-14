@@ -197,7 +197,7 @@ where t_TeamID = teamID;
 SELECT *
 from Archenemy
 group by ae_SuperheroID
-having >= 3 ;
+having count(*)>= 3 ;
 
 
 -- 8. Adding a new character (will need to find the highest ID and use that to get the ID for the character)
@@ -284,6 +284,27 @@ SET r_name = 'half-vampire'
 WHERE r_ID = 40;
 
 
+-- 16.  group all superheroes by gender and count how many characters are in each gender
+SELECT nl_Gender, count(*)
+from Superhero, NormalIdentity
+where sh_ID = nl_ID
+group by nl_Gender;
+
+-- 17. Determine which group (Superhero, Villain, Antihero) has the most females
+
+-- SELECT count(*) as femaleCount
+-- from Superhero, NormalIdentity
+-- where sh_ID = nl_ID and nl_Gender = 'f'
+-- INTERSECT
+-- SELECT count(*) as femaleCount
+-- from Antihero, NormalIdentity
+-- where ah_ID = nl_ID and nl_Gender = 'f'
+-- intersect
+-- SELECT count(*) as femaleCount
+-- from Villain, NormalIdentity
+-- where v_ID = nl_ID and nl_Gender = 'f'
+
+-- SELECT 
 
 
 
