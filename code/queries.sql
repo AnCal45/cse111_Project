@@ -292,19 +292,25 @@ group by nl_Gender;
 
 -- 17. Determine which group (Superhero, Villain, Antihero) has the most females
 
--- SELECT count(*) as femaleCount
--- from Superhero, NormalIdentity
--- where sh_ID = nl_ID and nl_Gender = 'f'
--- INTERSECT
--- SELECT count(*) as femaleCount
--- from Antihero, NormalIdentity
--- where ah_ID = nl_ID and nl_Gender = 'f'
--- intersect
--- SELECT count(*) as femaleCount
--- from Villain, NormalIdentity
--- where v_ID = nl_ID and nl_Gender = 'f'
+SELECT 
+    case 
+        WHEN sh_femaleCount > ah_femaleCount and sh_femaleCount > v_femaleCount THEN
+                'Superhero'
+        WHEN ah_femaleCount > sh_femaleCount and ah_femaleCount > v_femaleCount THEN
+                'Antihero'
+        ELSE 
+                'Villain'
+        end groupName
+from (SELECT count(*) as sh_femaleCount
+    from Superhero, NormalIdentity
+    where sh_ID = nl_ID and nl_Gender = 'f'), (SELECT count(*) as ah_femaleCount
+                                                from Antihero, NormalIdentity
+                                                where ah_ID = nl_ID and nl_Gender = 'f'), (SELECT count(*) as v_femaleCount
+                                                                                            from Villain, NormalIdentity
+                                                                                            where v_ID = nl_ID and nl_Gender = 'f');
 
--- SELECT 
+
+
 
 
 
