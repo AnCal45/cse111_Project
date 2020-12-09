@@ -8,3 +8,4 @@ delete from Superpower;
 delete from Archenemy;
 delete from Race;
 delete from Dimension;
+delete from FromWhere;
