@@ -1,3 +1,11 @@
+/* 
+Martin Vazquez
+Andres Calvillo
+CSE111 Project Phase 2
+
+*/
+
+
 
 /* 
     create tables
@@ -108,19 +116,8 @@ create table FromWhere(
     where_name char(20) not null
 );
 
+-- Tables were populated through sqliteStudio
 
-
--- populate table
-.mode "csv"
-.separator ","
-.import database_normalIdentity.csv NormalIdentity
--- we can do it in 3 different ways:
-    -- importing using the .import command
-    -- importing using sqliteStudio
-    -- inserting values manually
-
-
--- create queries that are useful
 
 -- 1. Find a specific hero by secret hero name
 SELECT *
@@ -201,7 +198,7 @@ having count(*)>= 3 ;
 
 
 -- 8. Adding a new character (will need to find the highest ID and use that to get the ID for the character)
-INSERT INTO NormalIdentity VALUES( ?, ?,'?','?', '?');
+INSERT INTO NormalIdentity VALUES( 200, 200,'?','?', '?');
 
 
 -- 9. All female villains, heroes, and antiheroes with their possible real names that are human
@@ -311,11 +308,83 @@ from (SELECT count(*) as sh_femaleCount
 
 
 
+-- 18. 
+
+
+ --No that seems good as the other is just printing out the 
+ --female of them all not the type,
+-- What about like I thing the villains ir superhero where I hqve all
+ -- the super power u can say print the heros with the power of money or
+ -- the heros a specific power or those who have like more than 5 powers
+
+--  SELECT *
+--  from Superhero, Superpower
 
 
 
-  
 
 
 
 
+
+
+
+-----------------   queries for DC characters    ---------------------
+
+    -- show all characters for DC
+SELECT nl_Name as realName, sh_Name as character, r_Name as type_race
+from NormalIdentity, Superhero, Race
+where nl_ID = sh_ID and sh_race = r_ID and sh_from = 2
+UNION
+SELECT nl_Name as realName, v_Name as character, r_Name as type_race
+from NormalIdentity, Villain, Race
+where nl_ID = v_ID and v_race = r_ID and v_from = 2
+union 
+SELECT nl_Name as realName, ah_Name as character, r_Name as type_race
+from NormalIdentity, Antihero, Race
+where nl_ID = ah_ID and ah_race = r_ID and ah_from = 2;
+
+
+
+
+
+
+---------------     queries for Marvel characters   ---------------------
+
+    -- show all characters from Marvel
+SELECT nl_Name as realName, sh_Name as character, r_Name as type_race
+from NormalIdentity, Superhero, Race
+where nl_ID = sh_ID and sh_race = r_ID and sh_from = 1
+UNION
+SELECT nl_Name as realName, v_Name as character, r_Name as type_race
+from NormalIdentity, Villain, Race
+where nl_ID = v_ID and v_race = r_ID and v_from = 1
+union 
+SELECT nl_Name as realName, ah_Name as character, r_Name as type_race
+from NormalIdentity, Antihero, Race
+where nl_ID = ah_ID and ah_race = r_ID and ah_from = 1;
+
+
+
+
+---------------   queries for both   --------------------
+
+    -- shows all characters (real name, character name, Race type)
+SELECT nl_Name as realName, sh_Name as character, r_Name as type_race
+from NormalIdentity, Superhero, Race
+where nl_ID = sh_ID and sh_race = r_ID 
+UNION
+SELECT nl_Name as realName, v_Name as character, r_Name as type_race
+from NormalIdentity, Villain, Race
+where nl_ID = v_ID and v_race = r_ID
+union 
+SELECT nl_Name as realName, ah_Name as character, r_Name as type_race
+from NormalIdentity, Antihero, Race
+where nl_ID = ah_ID and ah_race = r_ID;
+
+
+
+
+
+
+---------------     ADMIN   ---------------------------
