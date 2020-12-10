@@ -789,6 +789,129 @@ public class proj {
 
 
 
+    //--------------------ADMIN----------------//
+    private void insertToNormalIdentity(int normalID, int normalPersonID, String personName, String gender, String birthplace){
+        try{
+            Statement stmt = c.createStatement();
+            String sql = "INSERT INTO normalIdentity VALUES( "+ normalID+", " + normalPersonID + ", " + personName +", " + gender +", " + birthplace +" )";
+            stmt.execute(sql);
+
+            c.commit();
+            
+            stmt.close();
+            System.out.println("Insert successful.");
+
+        }catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+        System.out.println("------------------------------------");
+    }
+
+    private void updateIntNormalIdentity(String attribute, int newVal){
+        try{
+            Statement stmt = c.createStatement();
+            String sql = "UPDATE normalIdentity set " + attribute + "= " + newVal+ ";";
+            stmt.execute(sql);
+
+            c.commit();
+            
+            stmt.close();
+            System.out.println("Update successful.");
+
+        }catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+        System.out.println("------------------------------------");
+        
+    }
+
+    private void updateStringNormalIdentity(String attribute, String newVal){
+        try{
+            Statement stmt = c.createStatement();
+            String sql = "UPDATE normalIdentity set " + attribute + "= '" + newVal+ "';";
+            stmt.execute(sql);
+
+            c.commit();
+            
+            stmt.close();
+            System.out.println("Update successful.");
+
+        }catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+        System.out.println("------------------------------------");
+    }
+
+    private void deleteFrom(String attributeName, int conditionVal){
+        try{
+            Statement stmt = c.createStatement();
+            String sql = "DELETE FROM normalIdentity WHERE " + attributeName + "= " + conditionVal+ ";";
+            stmt.execute(sql);
+
+            c.commit();
+            
+            stmt.close();
+            System.out.println("Delete successful.");
+
+        }catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+        System.out.println("------------------------------------");
+
+    }
+
+    private void deleteFrom(String attributeName, String conditionVal){
+        try{
+            Statement stmt = c.createStatement();
+            String sql = "DELETE FROM normalIdentity WHERE " + attributeName + "= '" + conditionVal+ "';";
+            stmt.execute(sql);
+
+            c.commit();
+            
+            stmt.close();
+            System.out.println("Delete successful.");
+
+        }catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+        System.out.println("------------------------------------");
+
+    }
+
+    private void viewTable(String tableName){
+        try{
+            Statement stmt = c.createStatement();
+            String sql = "SELECT * FROM " + tableName;
+            stmt.execute(sql);
+
+            c.commit();
+            
+            /*
+            
+            Currently not printing tables
+            
+            */
+
+            stmt.close();
+            System.out.println("Search successful.");
+
+        }catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+        System.out.println("------------------------------------");
+
+    }
+
+
+
+
+
+
+       //--------------------ADMIN----------------//
+
+
+
+
     
     public static void main(String args[]){
         proj sj = new proj();
@@ -1908,6 +2031,8 @@ public class proj {
                         System.out.println("please put the ni_dob string");
                         String normadob = input.nextLine();
 
+                        sj.insertToNormalIdentity(normalID, normalpersonID, normalname, normalgender, normadob);
+
                         
                     }
 
@@ -2046,13 +2171,21 @@ public class proj {
                         int normalidentitupdate = input.nextInt();
 
                         if (normalidentitupdate == 1){
+                            System.out.println("Type the attribute name that you would like to update:");
+                            String attributeName = input.nextLine();
                             System.out.println("now put in the new int value that will replace the old");
                             int newnrmalid = input.nextInt();
 
+                            sj.updateIntNormalIdentity(attributeName, newnrmalid);
+
                         }
                         if (normalidentitupdate == 2){
+                            System.out.println("Type the attribute name that you would like to update:");
+                            String attributeName = input.nextLine();
                             System.out.println("now put in the new string value that will replace the old");
-                            String newnrmalidln = input.nextLine();
+                            String newVal = input.nextLine();
+
+                            sj.updateStringNormalIdentity(attributeName, newVal);
 
                         }
                     } //end of if(whattablebuddy2 == 1){}
@@ -2077,13 +2210,24 @@ public class proj {
                         System.out.println("so yoou want to delete from the NormalIdentity");
                         System.out.println("press 1 for int conditon or 2 for a string");
                         int deletenormid = input.nextInt();
+
                         if (deletenormid == 1){
-                            System.out.println("now put in the new int value that will replace the old");
-                            int newnrmalid = input.nextInt();
+                            System.out.println("Type the attribute name for your condition:");
+                            String attributeName = input.nextLine();
+                            System.out.println("now put in the int value for your condition:");
+                            int conditionVal = input.nextInt();
+
+                            sj.deleteFrom( attributeName,  conditionVal);
+
                         }
                         if (deletenormid == 2){
+                            System.out.println("Type the attribute name for your condition:");
+                            String attributeName = input.nextLine();
                             System.out.println("now put in the new string value that will replace the old");
-                            String newnrmalidln = input.nextLine();
+                            String conditionVal = input.nextLine();
+
+                            sj.deleteFrom( attributeName,  conditionVal);
+
                         }
           
                     }
@@ -2107,36 +2251,48 @@ public class proj {
 
                     if (whattablebuddy4 == 1){
                         System.out.println("now printing the NormalIdentity table");
+                        sj.viewTable("NormalIdentity");
+
                       }
                     if (whattablebuddy4 == 2){
                         System.out.println("now printing the Superhero table");
+                        sj.viewTable("Superhero");
                     }
                     if (whattablebuddy4 == 3){
                         System.out.println("now printing the Antihero table");
+                        sj.viewTable("Antihero");
                     }
                     if (whattablebuddy4 == 4){
                         System.out.println("now printing the Villain table");
+                        sj.viewTable("Villain");
                     }
                     if (whattablebuddy4 == 5){
                         System.out.println("now printing the Team table");
+                        sj.viewTable("Team");
                     }
                     if (whattablebuddy4 == 6){
                         System.out.println("now printing the Version table");
+                        sj.viewTable("Version");
                     }
                     if (whattablebuddy4 == 7){
                         System.out.println("now printing the Superpower table");
+                        sj.viewTable("Superpower");
                       }
                     if (whattablebuddy4 == 8){
                         System.out.println("now printing the Archenemy table");
+                        sj.viewTable("Archenemy");
                     }
                     if (whattablebuddy4 == 9){
                         System.out.println("now printing the Race table");
+                        sj.viewTable("Race");
                     }
                     if (whattablebuddy4 == 10){
                         System.out.println("now printing the Dimension table");
+                        sj.viewTable("Dimension");
                     }
                     if (whattablebuddy4 == 11){
                         System.out.println("now printing the all tables");
+                        //sj.viewTable("tableName");
                     }
 
                 }// end of if(whatchawannado == 4){}
