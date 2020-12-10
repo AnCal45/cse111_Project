@@ -699,6 +699,94 @@ public class proj {
 
     }
 
+    private void VillainFromEarthNotHuman(){
+        try {
+            String sql = "SELECT nl_Name, v_Name"+
+            "from Villain, NormalIdentity, Race "+
+            "where nl_ID = v_ID and v_race = r_ID "+
+            "    and r_Name <> 'human' and nl_DoB = 'Earth'";
+
+            PreparedStatement stmt = c.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            System.out.printf("%-45s %-45s\n", "Real Name", "Character Name");
+
+            while(rs.next()){
+                String realName = rs.getString(1);
+                String charac = rs.getString(2);
+                System.out.printf("%-45s%-45s\n", realName, charac);
+               
+            }
+
+
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+        System.out.println("------------------------------------");
+    }
+
+
+    private void HeroWithArchenemy(){
+        try {
+            String sql = "SELECT sh_Name " +
+            "from Superhero, (SELECT ae_SuperheroID " +
+            "                from Archenemy " +
+            "                group by ae_SuperheroID " +
+            "                having count(*)>= 3) " +
+            "where ae_SuperheroID = sh_ID";
+
+            PreparedStatement stmt = c.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            System.out.printf("%-45s\n", "Character Name");
+
+            while(rs.next()){
+                String charac = rs.getString(1);
+                System.out.printf("%-45s\n", charac);
+            }
+
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+        System.out.println("------------------------------------");
+    }
+
+
+    private void AffiliationWithMostWomen(){
+        try {
+            String sql = "SELECT  " +
+            "case  " +
+            "    WHEN sh_femaleCount > ah_femaleCount and sh_femaleCount > v_femaleCount THEN " +
+            "            'Superhero' " +
+            "    WHEN ah_femaleCount > sh_femaleCount and ah_femaleCount > v_femaleCount THEN " +
+            "            'Antihero' " +
+            "    ELSE  " +
+            "            'Villain' " +
+            "    end groupName " +
+        "from (SELECT count(*) as sh_femaleCount " +
+        "    from Superhero, NormalIdentity " +
+        "    where sh_ID = nl_ID and nl_Gender = 'f'), (SELECT count(*) as ah_femaleCount " +
+            "                                            from Antihero, NormalIdentity " +
+            "                                            where ah_ID = nl_ID and nl_Gender = 'f'), (SELECT count(*) as v_femaleCount " +
+            "                                                                                        from Villain, NormalIdentity " +
+            "                                                                                        where v_ID = nl_ID and nl_Gender = 'f')";
+
+            PreparedStatement stmt = c.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            System.out.printf("%-45s\n", "Affiliation");
+
+            while(rs.next()){
+                String group = rs.getString(1);
+                System.out.printf("%-45s\n", group);
+            }
+
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+        System.out.println("------------------------------------");
+    }
+
 
 
     
@@ -1726,32 +1814,342 @@ public class proj {
 
 
             if(marveldcsearch == 1){
+                System.out.println("Showing all characters from both DC and Marvel");
                 sj.AllChars();
             }
 
-        }
+            if(marveldcsearch == 2){
+                System.out.println("Type the name of the character you wish to look for:");
+                String charname = input.nextLine();
+                sj.CallCharWithName(charname);
+            }
+
+            if(marveldcsearch == 3){
+                System.out.println("A list of custom commands are given, choose what you'd like:");
+                System.out.println("To find all villains born on earth that are not human press 1");
+                System.out.println("To find the heroes with at least 3 archenemies press 2");
+                System.out.println("To determine which group (Superhero, Villain, Antihero) has the most females press 3");
+                int customCommand = input.nextInt();
+
+                if(customCommand == 1){
+                    System.out.println("Showing all villains born on Earth that are not human");
+                    sj.VillainFromEarthNotHuman();
+
+                }
+
+                if(customCommand == 2){
+                    System.out.println("Showing heroes with at least 3 archenemies");
+                    sj.HeroWithArchenemy();
+                }
+
+                if(customCommand == 3){
+                    System.out.println("Showing the affiliation with the highest count of female members");
+                    sj.AffiliationWithMostWomen();
+                }
+
+
+            }
+
+        } //end of if(whatyouwannasee == 3){}
 
 
 
 
-    }
+    } // end of if(whoareyou == 1){}
 
 
-    if (whoareyou == 2){
-        System.out.println("Welcome back Master plwes put pwassword plws");
-        int psswrd = input.nextInt();
+        if (whoareyou == 2){
+            System.out.println("Welcome back Master plwes put pwassword plws");
+            int psswrd = input.nextInt();
+            int entry;
 
-        if (psswrd == 1111){
-          System.out.println("Correct password welcome back");
-        }
-        else{
-          System.out.println("Incorrect password bzz bzz");
-        }
+            if (psswrd == 1111){
+                System.out.println("Correct password welcome back");
+                entry = 1;
+            }
+            else{
+                System.out.println("Incorrect password bzz bzz");
+                entry = 0;
+            }
 
-      }
+    
+            if(entry == 1){
+                System.out.println("welcom admin what would u like to do today");
+                System.out.println("if you would like to INSERT the Database press 1");
+                System.out.println("if you would like to UPDATE the Database press 2");
+                System.out.println("if you would like to DELETE the Database press 3");
+                System.out.println("if you would like to VEIW the Database press 4");
+                int whatchawannado = input.nextInt();
+
+                if (whatchawannado == 1){
+                    System.out.println("ah I see you would like to INSERT now which table would you like to edit ");
+                    System.out.println("if you would like to edit NormalIdentity table press 1");
+                    System.out.println("if you would like to edit Superhero table press 2");
+                    System.out.println("if you would like to edit Antihero table press 3");
+                    System.out.println("if you would like to edit Villain table press 4");
+                    System.out.println("if you would like to edit Team table press 5");
+                    System.out.println("if you would like to edit Version table press 6");
+                    System.out.println("if you would like to edit Superpower table press 7");
+                    System.out.println("if you would like to edit Archenemy table press 8");
+                    System.out.println("if you would like to edit Race table press 9");
+                    System.out.println("if you would like to edit Dimension table press 10");
+                    int whattablebuddy1 = input.nextInt();
+
+                    if (whattablebuddy1 == 1){
+                        System.out.println("I see you want to insert into NormalIdentity please input the following values");
+                        System.out.println("please put the ni_ID int");
+                        int normalID = input.nextInt();
+                        System.out.println("please put the ni_persoinID int");
+                        int normalpersonID = input.nextInt();
+                        System.out.println("please put the ni_name string");
+                        String normalname = input.nextLine();
+                        System.out.println("please put the ni_gender string");
+                        String normalgender = input.nextLine();
+                        System.out.println("please put the ni_dob string");
+                        String normadob = input.nextLine();
+
+                        
+                    }
+
+                    if (whattablebuddy1 == 2){
+                        System.out.println("I see you want to insert into Superhero please input the following values");
+                        System.out.println("please put the sh_ID int");
+                        int shID = input.nextInt();
+                        System.out.println("please put the sh_SuperheroID int");
+                        int SuperheroID = input.nextInt();
+                        System.out.println("please put the sh_Name string");
+                        String shname = input.nextLine();
+                        System.out.println("please put the sh_SuperpowerID Int");
+                        int shSuperpowerID = input.nextInt();
+                        System.out.println("please put the sh_Description string");
+                        String shDescription = input.nextLine();
+                    }
+
+                    if (whattablebuddy1 == 3){
+                        System.out.println("I see you want to insert into Antihero please input the following values");
+                        System.out.println("please put the ah_ID int");
+                        int ahID = input.nextInt();
+                        System.out.println("please put the ah_AntiheroID int");
+                        int AntiheroID = input.nextInt();
+                        System.out.println("please put the ah_Name string");
+                        String ahname = input.nextLine();
+                        System.out.println("please put the ah_SuperpowerID Int");
+                        int ahSuperpowerID = input.nextInt();
+                        System.out.println("please put the ah_Description string");
+                        String ahDescription = input.nextLine();
+                    }
+
+                    if (whattablebuddy1 == 4){
+                        System.out.println("I see you want to insert into Villain please input the following values");
+                        System.out.println("please put the v_ID int");
+                        int vID = input.nextInt();
+                        System.out.println("please put the v_VillianID int");
+                        int villianID = input.nextInt();
+                        System.out.println("please put the v_Name string");
+                        String  vname = input.nextLine();
+                        System.out.println("please put the v_SuperpowerID Int");
+                        int vSuperpowerID = input.nextInt();
+                        System.out.println("please put the v_Description string");
+                        String vDescription = input.nextLine();
+                    }
+
+                    if (whattablebuddy1 == 5){
+                        System.out.println("I see you want to insert into Team please input the following values");
+                        System.out.println("please put the t_superhetroID int");
+                        int tshID = input.nextInt();
+                        System.out.println("please put the t_VillianID int");
+                        int tvID = input.nextInt();
+                        System.out.println("please put the t_antiheroID int");
+                        int tahID = input.nextInt();
+                        System.out.println("please put the t_Name string");
+                        String  vname = input.nextLine();
+                        System.out.println("please put the t_teamID Int");
+                        int vSuperpowerID = input.nextInt();
+          
+                    }
+
+                    if (whattablebuddy1 == 6){
+                        System.out.println("I see you want to insert into Version please input the following values");
+                        System.out.println("please put the ver_superhetroID int");
+                        int vershID = input.nextInt();
+                        System.out.println("please put the ver_VillianID int");
+                        int vervID = input.nextInt();
+                        System.out.println("please put the ver_antiheroID int");
+                        int verahID = input.nextInt();
+                        System.out.println("please put the ver_Name string");
+                        String vername = input.nextLine();
+                        System.out.println("please put the ver_ID Int");
+                        int verID = input.nextInt();
+                    }
+
+                    if (whattablebuddy1 == 7){
+                        System.out.println("I see you want to insert into Superpower please input the following values");
+                        System.out.println("please put the sp_ID int");
+                        int spID = input.nextInt();
+                        System.out.println("please put the sp_PowerID int");
+                        int powerID = input.nextInt();
+                        System.out.println("please put the t_Name string");
+                        String  vname = input.nextLine();
+                        System.out.println("please put the sp_Description string");
+                        String  spdescrip = input.nextLine();
+          
+                    }
+
+                    if (whattablebuddy1 == 8){
+                        System.out.println("I see you want to insert into Archenemy please input the following values");
+                        System.out.println("please put the ae_superhetroID int");
+                        int aeshID = input.nextInt();
+                        System.out.println("please put the ae_VillianID int");
+                        int aevID = input.nextInt();
+                        System.out.println("please put the ae_ID int");
+                        int aeID = input.nextInt();
+                    }
+
+                    if (whattablebuddy1 == 9){
+                        System.out.println("I see you want to insert into Race please input the following values");
+                        System.out.println("please put the r_ID int");
+                        int rID = input.nextInt();
+                        System.out.println("please put the r_Name string");
+                        String rname = input.nextLine();
+                    }
+
+                    if (whattablebuddy1 == 10){
+                        System.out.println("I see you want to insert into Dimension please input the following values");
+                        System.out.println("please put the d_dimensionID int");
+                        int dID = input.nextInt();
+                        System.out.println("please put the ver_Name string");
+                        String dname = input.nextLine();
+                        System.out.println("please put the d_verionID Int");
+                        int dverID = input.nextInt();
+          
+                      }
+
+                }// end of if(whatchawannado == 1){}
+
+                if (whatchawannado == 2){
+                    System.out.println("ah I see you would like to UPDATE now which table would you like to edit ");
+                    System.out.println("if you would like to edit NormalIdentity table press 1");
+                    System.out.println("if you would like to edit Superhero table press 2");
+                    System.out.println("if you would like to edit Antihero table press 3");
+                    System.out.println("if you would like to edit Villain table press 4");
+                    System.out.println("if you would like to edit Team table press 5");
+                    System.out.println("if you would like to edit Version table press 6");
+                    System.out.println("if you would like to edit Superpower table press 7");
+                    System.out.println("if you would like to edit Archenemy table press 8");
+                    System.out.println("if you would like to edit Race table press 9");
+                    System.out.println("if you would like to edit Dimension table press 10");
+                    int whattablebuddy2 = input.nextInt();
+
+                    if (whattablebuddy2 == 1){
+                        System.out.println("so you wanted to UPDATE  the NormalIdentity table please input new values and where they would replace them");
+                        System.out.println("press 1 if you are updating a Int value, press 2 for a string value");
+                        int normalidentitupdate = input.nextInt();
+
+                        if (normalidentitupdate == 1){
+                            System.out.println("now put in the new int value that will replace the old");
+                            int newnrmalid = input.nextInt();
+
+                        }
+                        if (normalidentitupdate == 2){
+                            System.out.println("now put in the new string value that will replace the old");
+                            String newnrmalidln = input.nextLine();
+
+                        }
+                    } //end of if(whattablebuddy2 == 1){}
+
+                } // end of if(whatchawannado == 2){}
+
+                if (whatchawannado == 3){
+                    System.out.println("ah I see you would like to DELETE now which table would you like to edit ");
+                    System.out.println("if you would like to edit NormalIdentity table press 1");
+                    System.out.println("if you would like to edit Superhero table press 2");
+                    System.out.println("if you would like to edit Antihero table press 3");
+                    System.out.println("if you would like to edit Villain table press 4");
+                    System.out.println("if you would like to edit Team table press 5");
+                    System.out.println("if you would like to edit Version table press 6");
+                    System.out.println("if you would like to edit Superpower table press 7");
+                    System.out.println("if you would like to edit Archenemy table press 8");
+                    System.out.println("if you would like to edit Race table press 9");
+                    System.out.println("if you would like to edit Dimension table press 10");
+                    int whattablebuddy3 = input.nextInt();
+
+                    if(whattablebuddy3 == 1){
+                        System.out.println("so yoou want to delete from the NormalIdentity");
+                        System.out.println("press 1 for int conditon or 2 for a string");
+                        int deletenormid = input.nextInt();
+                        if (deletenormid == 1){
+                            System.out.println("now put in the new int value that will replace the old");
+                            int newnrmalid = input.nextInt();
+                        }
+                        if (deletenormid == 2){
+                            System.out.println("now put in the new string value that will replace the old");
+                            String newnrmalidln = input.nextLine();
+                        }
+          
+                    }
+
+                } // end of if(whatchawannado == 3){}
+
+                if (whatchawannado == 4){
+                    System.out.println("ah I see you would like to VEIW now which table would you like to view ");
+                    System.out.println("if you would like to veiw NormalIdentity table press 1");
+                    System.out.println("if you would like to veiw Superhero table press 2");
+                    System.out.println("if you would like to veiw Antihero table press 3");
+                    System.out.println("if you would like to veiw Villain table press 4");
+                    System.out.println("if you would like to veiw Team table press 5");
+                    System.out.println("if you would like to veiw Version table press 6");
+                    System.out.println("if you would like to veiw Superpower table press 7");
+                    System.out.println("if you would like to veiw Archenemy table press 8");
+                    System.out.println("if you would like to veiw Race table press 9");
+                    System.out.println("if you would like to veiw Dimension table press 10");
+                    System.out.println("if you would like to veiw all tables press 11");
+                    int whattablebuddy4 = input.nextInt();
+
+                    if (whattablebuddy4 == 1){
+                        System.out.println("now printing the NormalIdentity table");
+                      }
+                    if (whattablebuddy4 == 2){
+                        System.out.println("now printing the Superhero table");
+                    }
+                    if (whattablebuddy4 == 3){
+                        System.out.println("now printing the Antihero table");
+                    }
+                    if (whattablebuddy4 == 4){
+                        System.out.println("now printing the Villain table");
+                    }
+                    if (whattablebuddy4 == 5){
+                        System.out.println("now printing the Team table");
+                    }
+                    if (whattablebuddy4 == 6){
+                        System.out.println("now printing the Version table");
+                    }
+                    if (whattablebuddy4 == 7){
+                        System.out.println("now printing the Superpower table");
+                      }
+                    if (whattablebuddy4 == 8){
+                        System.out.println("now printing the Archenemy table");
+                    }
+                    if (whattablebuddy4 == 9){
+                        System.out.println("now printing the Race table");
+                    }
+                    if (whattablebuddy4 == 10){
+                        System.out.println("now printing the Dimension table");
+                    }
+                    if (whattablebuddy4 == 11){
+                        System.out.println("now printing the all tables");
+                    }
+
+                }// end of if(whatchawannado == 4){}
 
 
+            } // end of if(entry == 1){
 
+            if (entry == 0){
+                System.out.println("please run program again and input correct password or go to new user");
+        
+            } // end of if(entry == 0){}
+
+        } // end of if (whoareyou == 2){
 
         sj.closeConnection();
 
